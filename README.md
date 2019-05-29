@@ -6,6 +6,7 @@ A single page code challenge using the SWAPI.co API. The application's purpose i
 ## Run instructions
 ###### Things you may need
 Bower https://github.com/bower/bower (npm install -g bower)
+
 Watchman (https://ember-cli.com/user-guide/#watchman) OSX:(brew install watchman)
 
 To run, download the zip folder and cd to the "code-challenge" directory. Use npm install to download any dependancies for ember. Then download the add-ons used in the application with these commands.
@@ -18,3 +19,5 @@ To run, download the zip folder and cd to the "code-challenge" directory. Use np
 Then start the server
 ###### ember serve
 And visit http://localhost:4200
+
+Please let me know if you experience any issues.
