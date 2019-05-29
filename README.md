@@ -3,7 +3,11 @@ A single page code challenge using the SWAPI.co API. The application's purpose i
 
 
 
-
-To run, download the zip folder and cd to the directory. Use npm install to download any dependancies from add-ons. Use Bower install to download bootstrap dependencies. The use 'Ember serve' to run the application.
-
-
+## Run instructions
+To run, download the zip folder and cd to the directory. Use npm install to download any dependancies from add-ons, or use 
+###### bower install bootstrap
+###### ember install ember-power-select
+###### ember install liquid-fire
+###### ember install ember-truth-helpers
+###### ember install ember-fetch
+###### ember serve
