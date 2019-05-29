@@ -1,0 +1,27 @@
+{{!-- 
+File: component/character.hbs
+Author: Dalton Brooks
+Last Edited: 5/28/2019
+Description:    This is a component helper to display the base icon/image and results area. 
+                It could have been left in the application template, 
+                but I think extracting it allows for cleaner code 
+                and makes use of ember's component functionality.  
+--}}
+{{!-- If results are not sent from the application template and it is undefined, 
+it means we are on the base page, so we display the base image and text --}}
+{{#if (not (eq results 0))}}
+    <div class="row">
+        <div class="col-4 mx-auto">
+            <img class="center mt-5 mr-5" id="breathing" src="/assets/graphics/vader-icon.svg"/>
+        </div>
+    </div>
+    <p class="text-center mb-5 mr-5">Search Characters By Name</p>
+{{!-- Otherwise (results == 0) we display No results and the image when there are no results and the component is called --}}
+{{else}}
+    <div class="row">
+        <div class="col-4 mx-auto">
+            <img class="center mt-5 mr-5" id="breathing" src="/assets/graphics/vader-icon.svg"/>
+        </div>
+    </div>
+    <p class="text-center mb-5 mr-5">No results</p>
+{{/if}}

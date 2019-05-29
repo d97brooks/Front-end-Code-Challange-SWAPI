@@ -1,0 +1,146 @@
+*{
+    font-family: "Montserrat";
+    /* border: solid 1px; */
+}
+@font-face {
+    font-family: 'Montserrat'; /*a name to be used later*/
+    src: url('/assets/fonts/Montserrat/Montserrat-Regular.ttf'); /*URL to font*/
+    src: url('/assets/fonts/Montserrat/Montserrat-Bold.ttf'); /*URL to font*/
+  }
+
+
+#search{
+    width: 32px;
+}
+#btn{
+  background-color: #52A2FF; color: #FFFFFF;
+}
+#btn:hover{
+  border-radius: 15px 15px 15px 15px;
+}
+.custom-control :hover{
+  cursor: pointer;
+}
+
+body{
+    background-color: #F7F8FA;
+    color: grey;
+}
+.filter{
+    width: 175px;
+    float: right;
+    text-align: left;
+    color: black;
+}
+
+#ember195 span{
+    color: black;
+}
+
+#ember195 span:hover{
+  cursor: pointer;
+}
+
+.col{
+    color: grey;
+}
+
+b{
+    color: black;
+
+}
+br {
+    display: block;
+    margin: 10px 0;
+ }
+
+li:hover{
+    border-radius: 35px 35px 35px 35px;
+    cursor: pointer; 
+    background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,.7));
+}
+
+
+.card#large{
+  height: 150px;
+  width: 350px;
+}
+
+
+ 
+.card-enter {
+  opacity: .1;
+  transform: translate(-1000px, 0);
+  transition: 2s;
+}
+ 
+.card-enter.card-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.card-leave {
+  opacity: 0;
+  
+}
+ 
+.card-leave.card-leave-active {
+  opacity: 0;
+  
+}
+
+
+
+
+#breathing {
+  -webkit-animation: breathing 3s ease-out infinite normal;
+  animation: breathing 2s ease-out infinite normal;
+  text-align: center;    
+  }
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}

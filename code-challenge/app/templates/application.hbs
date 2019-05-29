@@ -1,0 +1,177 @@
+{{!-- 
+File: application.hbs 
+Author: Dalton Brooks
+Last Edited: 5/28/2019
+Description: This is the Front-End Coding Challage page for Subsplash. 
+             The goal was to match the given design as much as possible with room for creativity, 
+             using the SWAPI.co API for people. 
+--}}
+
+<head> 
+     {{!-- This audio tag allows audio to be played when the user searches or on the landing page (vader breathing) --}}
+    <audio id="vader" controls loop style="display: none;" >
+        <source src="/assets/sounds/Darth-Vader-Breath.mp3" type="audio/mpeg">
+    </audio>
+</head>
+<body>
+{{!-- A small toggle switch for audio --}}
+<div class="container text-right mb-5 mr-5 mt-5">
+    <div class="custom-control custom-switch">
+        {{!-- The checkbox for whether audio can play or not --}}
+        <input type="checkbox" class="custom-control-input" id="customSwitch2" onclick="toggle()">
+        <label class="custom-control-label" for="customSwitch2">Audio</label>
+    </div>
+</div>
+
+{{!-- container for text input search function --}}
+<div class="containe-5 text-center mt-5">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <div class="input-group shadow-sm p-3 bg-white rounded">  
+                 {{!-- input helper for search --}}
+                {{input class="form-control float-left" style="" type="text" id="search" value=input enter=(action "search" input) placeholder="Search Star Wars Characters" }}
+                {{!-- search button -> calls search action in application controller with user input --}}
+                <span class="input-group-btn">
+                    <button id="btn" class="btn btn-search shadow-sm" type="button" onclick="playRandomSoundClip()"{{action "search" input}}> Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- container for result count and dropdown menu --}}
+<div class="container w-50 mt-5">
+    
+    <div class="row" style="">
+        <div class="col float-left">   
+            {{!-- if we have data, display number of results based on gender selection --}}
+            {{#if model}}
+                {{#if (or (eq gender '') (eq gender "all"))}}
+                    {{this.model.length}} 
+                {{else}}
+                    {{get genderCounts gender}}
+                {{/if}}
+            {{else}}
+                0
+            {{/if}}
+            RESULTS 
+        </div>
+        <div class="col text-right"> GENDER
+            <div class="col filter">
+            {{!-- power-select dropdown menu for gender chose
+            ->    installed using ember install ember-power-select 
+            ->    makes for easier drop down handling
+                --}}
+                {{#power-select
+                    options=genders
+                    renderInPlace=true
+                    placeholder="filter by gender"
+                    selected=gender
+                    onchange=(action (mut gender))
+                    as |gender|
+                }}
+            {{!-- if we have results, add gender count values,
+            ->    otherwise only display gender --}}
+                    {{#if model}}
+                        <b>{{gender}}</b> ({{get genderCounts gender}})    
+                    {{else}}
+                        <b>{{gender}}</b>
+                    {{/if}}
+                {{/power-select}}
+            </div>        
+        </div>
+    </div>
+</div>
+
+{{!-- results contianer --}}
+<div class="container w-50 text-center mt-4">
+
+    {{!-- this liquid spacer (liquid fire addon) allows for animation of growing elements --}}
+    {{#liquid-spacer growDuration="800"}}
+
+    {{!-- begin a list for our cards to be displayed --}}
+    <ul class="container shadow p-4 mb-5 bg-white rounded" >
+
+    {{!-- if model/results are not loaded display base results card --}}
+    {{#unless model}}
+        <Base @results={{get genderCounts gender}}/>
+    {{/unless}}
+
+
+    {{!-- case: display all results --}}
+    {{#if (or (eq gender '') (eq gender 'all') )}}
+        {{#each model as |person index|}}
+            {{#transition-group transitionClass="card"}}
+                {{#liquid-spacer growDuration="800"}}
+                    <Character @person={{person}} @index={{index}} />
+                    {{/liquid-spacer}}
+                {{/transition-group}}
+        {{/each}}
+
+
+    {{!-- case: display chosen gender --}}
+    {{else}} 
+        {{#if (and (eq (get genderCounts gender) 0) model)}}
+            <Base @results={{get genderCounts gender}} />
+        {{else}} 
+            {{#each model as |person index|}}
+                {{#if (eq gender person.gender)}}
+                    {{#transition-group transitionClass="card"}}
+                        {{#liquid-spacer growDuration="800"}}
+                            <Character @person={{person}} @index={{index}} />
+                        {{/liquid-spacer}}
+                    {{/transition-group}}
+                {{/if}} 
+            {{/each}}
+        {{/if}}
+    {{/if}}
+    
+    </ul>
+    {{/liquid-spacer}}
+</div>
+{{outlet}}
+</body>
+
+    {{!-- some javascript functions for audio --}}
+<script>
+    // File locations for audio files
+    const soundFiles = ["As you wish.mp3",
+                        "Bidding.mp3",
+                        "Apology.mp3",
+                        "Dont fail me again.mp3",
+                        "Every part of the ship.mp3",
+                        "Force.mp3",
+                        "He is here.mp3",
+                        "I am your father.mp3",
+                        "I have you now.mp3",
+                        "Lack of faith.mp3",
+                        "Last time.mp3",
+                        "No Disintigration.mp3",
+                        "Offering.mp3",
+                        "What Happened.mp3",
+                        "Yes my master.mp3"
+                        ];
+    //toggle function to pause and play audio if the vader icon is displayed
+    function toggle() {
+        var audio = document.getElementById('vader');
+        audio.volume=".02";
+        if(document.getElementById("breathing"))
+            return audio.paused ? audio.play() : audio.pause();
+        else{
+            return audio.pause();
+        }
+    }
+    // plays a random clip on click of search if the audio toggle is on
+    function playRandomSoundClip(){
+        var audio = document.getElementById('vader');
+        if(document.getElementById("customSwitch2").checked){
+            if(!audio.paused || audio.played){
+                audio.pause();
+                var rand = Math.floor(Math.random() * soundFiles.length);
+                audio.src = "/assets/sounds/" + soundFiles[rand];
+                audio.loop = false;
+                audio.play();
+            }
+        }
+    }
+</script>

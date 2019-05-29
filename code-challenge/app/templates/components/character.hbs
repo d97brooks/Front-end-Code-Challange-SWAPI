@@ -1,0 +1,46 @@
+{{!-- 
+File: component/character.hbs
+Author: Dalton Brooks
+Last Edited: 5/28/2019
+Description:    This is a component helper to display the character data. 
+                It could have been left in the application template, 
+                but I think extracting it allows for cleaner code 
+                and makes use of ember's component functionality. 
+--}}
+
+{{!-- If the user has clicked the component, display more information about the person --}}
+{{#if clicked}}
+   <li class="card card-item border-left-0 
+{{if (eq index 0) "border-top-0"}} border-right-0 border-bottom-0 mr-5 text-left" onclick={{action "click"}} style="width: 100%" >
+    <br>
+    <p id="content">
+        <b>Name: {{person.name}}</b> <br>
+        Height: {{person.height}}<br>
+        Mass: {{person.mass}} <br>
+        Gender: {{person.gender}} <br>
+        Skin Color: {{person.skin_color}} <br>
+        Hair Color:  {{person.hair_color}} <br>
+        Eye Color: {{person.eye_color}}<br>
+        Birth Year: {{person.birth_year}}<br>
+    </p>
+
+    <br>
+    
+</li>
+
+{{!-- Otherwise (default) display limited information about the character --}}
+{{else}}
+    <li class="card card-item border-left-0 
+    {{if (eq index 0) "border-top-0"}} border-right-0 border-bottom-0 mr-5 text-left" onclick={{action "click"}}>
+    <br>
+    <p id="content">
+        <b>{{person.name}}</b> 
+        <br>
+        {{person.gender}} &#8226; 
+        {{!-- conditionally show text for "hair" and "eyes" when appropriate --}}
+        {{person.hair_color}} {{#unless (or (eq "none" person.hair_color) (eq "n/a" person.hair_color))}} hair {{/unless}} &#8226; 
+        {{person.eye_color}} {{#unless (or (eq "none" person.eye_color) (eq "n/a" person.eye_color))}} eyes {{/unless}} 
+    <br>
+    </p>
+</li>
+{{/if}}
